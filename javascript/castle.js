@@ -1,12 +1,11 @@
 var https = require('https');
-var fs = require('fs');
 var cheerio = require('cheerio');
 var querystring=require('querystring');
 var hotels=[];
 var post_datas=[];
 var actions = [];
 var async = require('async');
-const file_path="../data/data.txt";
+
 module.exports = {
     getHotels:getHotels
 }
@@ -85,13 +84,3 @@ function getHotels(){
     //return hotels
 }
 
-
-// function saveData(path, movies) {
-// // use fs.writeFile to save data during debug
-//     fs.writeFile(path, JSON.stringify(movies, null, 4), function (err) {
-//         if (err) {
-//             return console.log(err);
-//         }
-//         console.log('Data saved');
-//     });
-// }
