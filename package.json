@@ -1,0 +1,29 @@
+{
+  "name": "castle",
+  "version": "1.0.0",
+  "description": "> Sleep well with Relais & Châteaux",
+  "main": "javascript/Test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dz269375933/castle.git"
+  },
+  "author": "dz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dz269375933/castle/issues"
+  },
+  "homepage": "https://github.com/dz269375933/castle#readme",
+  "dependencies": {
+    "async": "^2.6.1",
+    "cheerio": "^1.0.0-rc.2",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "http": "0.0.0",
+    "request": "^2.88.0",
+    "superagent": "^4.1.0"
+  }
+}
