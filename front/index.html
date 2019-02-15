@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dz' Practice</title>
+    <link rel="stylesheet" href="../css/index.css" type="text/css"/>
+    <script src="../javascript/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../javascript/index.js"></script>
+    <script src="../javascript/template-web.js"></script>
+    <script>
+        init();
+    </script>
+    <script id="showProperties" type="text/html">
+        <tr id="weekendTitle">
+            <td id="weekend" colspan="4" align="center">weekend:{{startDay}}</td>
+        </tr>
+        <tr>
+            <td><a>name</a></td>
+            <td><a>locality</a></td>
+            <td><a>price</a></td>
+            <td><a>star</a></td>
+        </tr>
+        {{each properties}}
+        <tr>
+            <td>{{$value.name}}</td>
+            <td>{{$value.addressLocality}}</td>
+            <td>{{$value.price}}&euro;</td>
+            <td>{{$value.rating}}</td>
+        </tr>
+        {{/each}}
+    </script>
+
+</head>
+<body>
+<div id="hint">
+    <h2 id="hint_p">Dz's Hotels Display</h2>
+</div>
+<div id="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+</div>
+<div class="middle">
+    <p></p>
+    <a>Name: </a><input id="filterName">&nbsp<button type="button" onclick="filterName()" >search</button>
+    <br />
+    <input type="radio" name="filter" value="name"/>name
+    <input type="radio" name="filter" value="star"/>star
+    <input type="radio" name="filter" value="price"/>price
+    <input type="radio" name="filter" value="distance"/>distance
+    <p></p>
+</div>
+<div id="tableDiv" visibility="hidden">
+    <table class="altrowstable" id="properties">
+
+    </table>
+
+</div>
+
+</body>
+</html>
