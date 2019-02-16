@@ -2,31 +2,50 @@
 <html>
 <head>
     <title>Dz' Practice</title>
+    <meta charset="utf-8" />
+    <script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
+    <!--<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script>-->
     <link rel="stylesheet" href="../css/index.css" type="text/css"/>
-    <script src="../javascript/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../javascript/lib/jquery-3.3.1.min.js"></script>
     <script src="../javascript/index.js"></script>
-    <script src="../javascript/template-web.js"></script>
+    <script src="../javascript/lib/template-web.js"></script>
+    <script src="../javascript/map.js"></script>
     <script>
         init();
     </script>
     <script id="showProperties" type="text/html">
         <tr id="weekendTitle">
-            <td id="weekend" colspan="4" align="center">weekend:{{startDay}}</td>
+            <td id="weekend" colspan="6" align="center">weekend:{{startDay}}</td>
         </tr>
         <tr>
             <td><a>name</a></td>
-            <td><a>locality</a></td>
-            <td><a>price</a></td>
             <td><a>star</a></td>
+            <td><a>price</a></td>
+            <td><a>locality</a></td>
+            <td><a>thoroughfare</a></td>
+            <td><a>postalCode</a></td>
+
         </tr>
         {{each properties}}
         <tr>
-            <td>{{$value.name}}</td>
-            <td>{{$value.addressLocality}}</td>
-            <td>{{$value.price}}&euro;</td>
+            <td><a href="javascript:void(0);" onclick="showMap(this)" value="{{$value.name}}">{{$value.name}}</a></td>
             <td>{{$value.rating}}</td>
+            <td>{{$value.price}}&euro;</td>
+            <td>{{$value.addressLocality}}</td>
+            <td>{{$value.thoroughfare}}</td>
+            <td>{{$value.postalCode}}</td>
+
         </tr>
         {{/each}}
+    </script>
+    <script type="text/javascript">
+
+        window.onload=function () {
+            clickGeocode();
+            // initGoogleMap();
+        }
+
+
     </script>
 
 </head>
@@ -41,10 +60,13 @@
     <div class="rect4"></div>
     <div class="rect5"></div>
 </div>
+<div class='middle' id="mapDiv" style="position:relative;width:800px;height:300px;"></div>
 <div class="middle">
     <p></p>
-    <a>Name: </a><input id="filterName">&nbsp<button type="button" onclick="filterName()" >search</button>
-    <br />
+    <a>Name: </a><input id="filterName">&nbsp
+    <button type="button" onclick="filterName()">search</button>
+    <button type="button" onclick="showProperties()">search</button>
+    <br/>
     <input type="radio" name="filter" value="name"/>name
     <input type="radio" name="filter" value="star"/>star
     <input type="radio" name="filter" value="price"/>price
@@ -57,6 +79,7 @@
     </table>
 
 </div>
+
 
 </body>
 </html>

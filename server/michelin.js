@@ -9,7 +9,7 @@ var mongo = require('./mongoDB')
 var count = 1;
 var insertCount=1;
 const bingMapKey='Atslwg4PLB9O17EIENI8cweB4kODZcMLqWcAimCtZWewxzH2XmMHQTw1_CPaI_xF';
-const startPages = 323;
+const startPages = 321;
 const maxPages = 340;
 module.exports={
     get:get
@@ -109,14 +109,13 @@ function resolveSingle(path) {
             let $ = cheerio.load(htmlTemp);
             object.rating = $('meta[itemprop="ratingValue"]').attr("content");
             object.name = $('h1[itemprop="name"]').text().replace(/(^\s*)|(\s*$)/g, "");
-            // const array=/".*"/
-            // object.thoroughfare=//.
-            const text=$('div.thoroughfare').first().text();
-            console.log(text);
-            // if(object.rating!=undefined && object.rating!='undefined'){
-            //     mongo.insertOne(object);
-            //     console.log(insertCount++);
-            // }
+            object.thoroughfare=$('div.thoroughfare').first().text();
+            object.postalCode=$('span.postal-code').first().text();
+            object.locality=$('span.locality').first().text();
+            if(object.rating!=undefined && object.rating!='undefined'){
+                mongo.insertOne(object);
+                console.log(insertCount++);
+            }
         });
     });
     req.on('error', function (e) {
@@ -136,7 +135,6 @@ function initMongoDBData(){
         // saveData(file_path,JSON.stringify(michelin_restaurants));
     });
 }
-initMongoDBData();
 function get(){
     return mongo.queryList();
 }

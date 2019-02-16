@@ -1,5 +1,5 @@
 var properties = [];
-var nameFilterProperties=[];
+var nameFilterProperties = [];
 var startDay;
 
 function init() {
@@ -19,20 +19,24 @@ function init() {
         }
     });
 }
-let successGetData=(data)=>{
-    $('#spinner').attr('visibility','hidden');
-    properties=data.properties;
-    startDay=data.startDay;
-    $('#tableDiv').attr('visibility','visible');
+
+let successGetData = (data) => {
+    $('#spinner').attr('visibility', 'hidden');
+    properties = data.properties;
+    startDay = data.startDay;
+    $('#tableDiv').attr('visibility', 'visible');
     showTable(properties);
 
 }
-function showTable(list){
-    var templateData={properties:list,startDay:startDay};
-    var html=template('showProperties',templateData);
-    document.getElementById('properties').innerHTML=html;
+
+function showTable(list) {
+    var templateData = {properties: list, startDay: startDay};
+    // resolveAddress(properties[0].name);
+    var html = template('showProperties', templateData);
+    document.getElementById('properties').innerHTML = html;
     altRows('properties');
 }
+
 function altRows(id) {
     var table = document.getElementById(id);
     var rows = table.getElementsByTagName("tr");
@@ -45,57 +49,90 @@ function altRows(id) {
         }
     }
 }
-function filterName(){
-    var name=$('#filterName').val();
+
+function filterName() {
+    var name = $('#filterName').val();
     var reg;
-    eval("reg=/.*"+name+".*/i");
-    console.log(reg);
-    try{
-        nameFilterProperties=[];
-        properties.forEach((property)=>{
-            if(reg.test(property.name)){
+    eval("reg=/.*" + name + ".*/i");
+    try {
+        nameFilterProperties = [];
+        properties.forEach((property) => {
+            if (reg.test(property.name)) {
                 nameFilterProperties.push(property);
             }
         });
         sortShowTable(nameFilterProperties);
-    }catch (e) {
+    } catch (e) {
         alert("Invalid name");
     }
 }
-function sortShowTable(data){
-    const filterName=$('input[name="filter"]:checked').val();
-    console.log(filterName);
-    if(filterName==undefined |filterName=='undefined'){
+
+function sortShowTable(data) {
+    const filterName = $('input[name="filter"]:checked').val();
+    if (filterName == undefined | filterName == 'undefined') {
         showTable(data);
-    }else{
-        switch (filterName){
-            case 'name':{
-                data.sort(function (a,b) {
-                    if(a.name<b.name){
+    } else {
+        switch (filterName) {
+            case 'name': {
+                data.sort(function (a, b) {
+                    if (a.name < b.name) {
                         return -1;
-                    }else if(a.name==b.name){
+                    } else if (a.name == b.name) {
                         return 0;
-                    }else{
+                    } else {
                         return 1;
                     }
                 });
                 showTable(data);
-            }break;
-            case 'star':{
-                data.sort(function (a,b) {
-                    return b.rating-a.rating;
+            }
+                break;
+            case 'star': {
+                data.sort(function (a, b) {
+                    return b.rating - a.rating;
                 });
                 showTable(data);
-            }break;
-            case 'price':{
-                data.sort(function (a,b) {
-                    return a.price-b.price;
+            }
+                break;
+            case 'price': {
+                data.sort(function (a, b) {
+                    return a.price - b.price;
                 });
                 showTable(data);
-            }break;
-            case 'distance':{
+            }
+                break;
+            case 'distance': {
 
-            }break;
+                data.sort(function (a, b) {
+                    if (a.distance == undefined) return 1;
+                    if (b.distance == undefined) return -1;
+                    return a.distance - b.distance;
+                });
+                showTable(data);
+            }
+                break;
+        }
+    }
+}
+
+function showMap(dom) {
+    const selectName=$(dom).attr('value');
+    for (let i = 0; i < properties.length; i++) {
+        const property = properties[i];
+        console.log(property);
+        if (property.name == selectName) {
+            if (property.latitude != undefined) {
+                console.log(loc);
+                var loc = new Microsoft.Maps.Location(property.latitude, property.longitude);
+                var pin = new Microsoft.Maps.Pushpin(loc, {
+                    title: property.name
+                });
+                map.entities.push(pin);
+                map.setView({
+                    center: loc,
+                    zoom: 13
+                });
+            }
+            break;
         }
     }
 }
