@@ -24,9 +24,6 @@ var myLocation = {};
 //         }
 //     });
 // }
-function showProperties(){
-    console.log(properties);
-}
 function GetMap() {
     map = new Microsoft.Maps.Map('#mapDiv', {credentials: bingKey});
     if (!searchManager) {
