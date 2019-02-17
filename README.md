@@ -1,3 +1,23 @@
+# What I did
+## Get michelin
+I got hotel list from michelin and saved data into mongoDB.
+Please read server/michelin.js. It's finished by nodejs.
+## Get relaischateaux
+I got data from www.relaischateaux.com dynamically.User can get data for the most recent weekend.
+Data is saved on server.
+Please read server/castle.js and server/app.js. It's finished by nodejs.
+## UI
+I got data from server and show table on UI.User can filter by hotel name,and can also sort data by name,price,star,distance at the same time.If you want to find the hotel on the map,you only need to click hotel name.There may be some errors on the map.Because I am based on the latitude and longitude of the address resolution, there may be some problems.
+# How to run it
+First,run server/michelin.js under nodejs.You need to have mongoDB on local:27017.
+```sh
+❯ node server/michelin.js
+```
+Second,run server/app.js under node.js. It's a server on 9001.
+```sh
+❯ node server/michelin.js
+```
+Finally,run front/index.html.There may be some cross-domain issues, the local address domain I am running is http://localhost:63342. You can change it in server/app.js.Then you can see hotels.
 # Castle
 
 > Sleep well with Relais & Châteaux
